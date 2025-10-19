@@ -1,0 +1,44 @@
+[package]
+name = "swii"
+version = "0.1.0"
+description = "Fast overlay app for switching between code editors on macOS"
+authors = ["Artur Tyshkovskii"]
+license = "GPL-3.0"
+repository = "https://github.com/tyshkovskii/swii"
+homepage = "https://github.com/tyshkovskii/swii"
+keywords = ["macos", "overlay", "editor", "switcher", "productivity"]
+categories = ["gui", "os::macos-apis"]
+edition = "2025"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[app]
+macOSPrivateApi = true
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "swii_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["macos-private-api", "tray-icon"] }
+tauri-plugin-opener = "2"
+tauri-plugin-positioner = { version = "2.0.0", features = ["tray-icon"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+core-graphics = "0.24"
+core-foundation = "0.10"
+libc = "0.2"
+chrono = { version = "0.4", features = ["serde"] }
+base64 = "0.21"
+image = "0.24"
+thiserror = "1.0"
+tracing = "0.1"
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-global-shortcut = "2"

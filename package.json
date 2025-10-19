@@ -1,0 +1,55 @@
+{
+  "name": "swii",
+  "private": false,
+  "version": "0.1.0",
+  "description": "A fast overlay app for macOS that lets you switch between code editors with a keyboard shortcut",
+  "author": "Artur Tyshkovskii",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tyshkovskii/swii.git"
+  },
+  "homepage": "https://github.com/tyshkovskii/swii.git",
+  "bugs": {
+    "url": "https://github.com/tyshkovskii/swii/issues"
+  },
+  "keywords": [
+    "macos",
+    "overlay",
+    "editor",
+    "switcher",
+    "productivity",
+    "tauri",
+    "svelte",
+    "keyboard-shortcut",
+    "window-manager"
+  ],
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "build:tauri": "npm run build && npm run tauri -- build",
+    "build:mac": "tauri build --bundles dmg --verbose",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-global-shortcut": "^2.3.0",
+    "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/plugin-positioner": "~2",
+    "fuse.js": "^7.1.0",
+    "tailwindcss": "^4.1.11"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.9",
+    "@sveltejs/kit": "^2.43.6",
+    "@sveltejs/vite-plugin-svelte": "^5.0.2",
+    "@tauri-apps/cli": "^2",
+    "svelte": "^5.18.3",
+    "svelte-check": "^4.0.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3"
+  }
+}
