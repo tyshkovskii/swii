@@ -8,6 +8,20 @@
        * while preserving the same layout and slot structure.
        */
       as?: Tag;
+      /**
+       * Overrides the base styling string. Set to an empty string when composing
+       * your own outer classes without the provided defaults.
+       */
+      baseClass?: string;
+      /**
+       * Overrides the layout styling string controlling grid/flex behavior.
+       */
+      layoutClass?: string;
+      /**
+       * When true, prevents default base styles from being applied. Use together
+       * with `class` or `baseClass` to fully control the wrapper styling.
+       */
+      unstyled?: boolean;
       leftClass?: string;
       middleClass?: string;
       rightClass?: string;
@@ -20,6 +34,9 @@
 
   const {
     as = 'footer',
+    baseClass = baseStyles,
+    layoutClass = layoutStyles,
+    unstyled = false,
     class: className = '',
     leftClass = 'flex min-w-0 items-center gap-2 text-left',
     middleClass = 'flex-1 flex min-w-0 items-center justify-center gap-2 text-center',
@@ -34,7 +51,7 @@
   this={as}
   role={as === 'footer' ? 'contentinfo' : undefined}
   {...$$restProps}
-  class={`${baseStyles} ${layoutStyles} ${className}`.trim()}
+  class={`${unstyled ? '' : baseClass} ${layoutClass} ${className}`.trim()}
 >
   <div class={`${leftClass}`}>
     <slot name="left" />
