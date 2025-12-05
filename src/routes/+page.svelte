@@ -9,6 +9,8 @@ import { logger } from '$lib/utils/logger';
 import EditorWindowsList from './components/EditorWindowsList.svelte';
 import EditorSearchBar from './components/EditorSearchBar.svelte';
 import DevErrorBadge from '$lib/ui/DevErrorBadge.svelte';
+import FooterBar from '$lib/ui/FooterBar.svelte';
+import FooterLabel from '$lib/ui/FooterLabel.svelte';
 
 logger.info('PAGE', '🚀 +page.svelte script block started');
 
@@ -24,6 +26,10 @@ let filteredResults = $derived.by(() => {
     return [];
   }
 });
+
+let overlayStatus = $derived.by(() =>
+  overlayStore.isVisible ? 'Overlay visible' : 'Overlay hidden'
+);
 
 async function handleBringWindowToFront(pid: number, window_number: number) {
   await editorWindowsStore.bringWindowToFront(pid, window_number);
@@ -105,9 +111,9 @@ $effect(() => {
 });
 </script>
 
-<div class="min-h-screen bg-zinc-900/98 backdrop-blur-xl text-white rounded-2xl border border-zinc-700/50 shadow-2xl">
-  <div class="w-full max-w-2xl mx-auto">
-    <EditorSearchBar 
+<div class="min-h-screen bg-zinc-900/98 backdrop-blur-xl text-white rounded-2xl border border-zinc-700/50 shadow-2xl flex flex-col overflow-hidden">
+  <div class="w-full max-w-2xl mx-auto flex-1 px-6 py-6">
+    <EditorSearchBar
       bind:this={searchBarRef}
       onClear={clearSearch}
     />
@@ -118,6 +124,38 @@ $effect(() => {
       onBringWindowToFront={handleBringWindowToFront}
     />
   </div>
+
+  <FooterBar
+    class="px-6 py-4"
+    leftClass="text-zinc-400"
+    middleClass="text-zinc-200"
+    rightClass="text-zinc-400"
+  >
+    <FooterLabel
+      slot="left"
+      label="Hotkey"
+      value={GLOBAL_SHORTCUT_KEY}
+      class="truncate"
+    />
+
+    <div slot="middle" class="flex items-center gap-3">
+      <FooterLabel
+        label="Windows"
+        value={filteredResults.length.toString()}
+        class="shrink"
+      />
+      <span class="h-4 w-px bg-zinc-700" aria-hidden="true" />
+      <span class="text-sm text-zinc-200">{overlayStatus}</span>
+    </div>
+
+    <FooterLabel
+      slot="right"
+      label="Status"
+      value="Ready for shortcuts"
+      class="truncate"
+      valueClass="text-sm text-zinc-200"
+    />
+  </FooterBar>
 </div>
 
 <DevErrorBadge />
