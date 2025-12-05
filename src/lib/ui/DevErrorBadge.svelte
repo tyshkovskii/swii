@@ -37,12 +37,9 @@ async function openDevTools() {
 {#if dev && devErrorsStore.hasErrors}
   <button
     onclick={openDevTools}
-    class="fixed bottom-4 right-4 z-50 relative bg-red-600 hover:bg-red-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all hover:scale-110 cursor-pointer"
+    class="fixed bottom-3 left-3 z-50 bg-red-500 hover:bg-red-600 text-white text-xs font-medium px-2 py-1 rounded-md shadow-sm transition-colors cursor-pointer"
     title="Development errors detected - Click to open DevTools"
   >
-    <span class="text-xl font-bold">!</span>
-    <span class="absolute -top-1 -right-1 bg-red-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-      {devErrorsStore.errors.length}
-    </span>
+    {devErrorsStore.errors.length} {devErrorsStore.errors.length === 1 ? 'error' : 'errors'}
   </button>
 {/if}
