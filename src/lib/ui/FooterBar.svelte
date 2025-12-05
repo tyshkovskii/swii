@@ -2,13 +2,12 @@
   import { clsx } from 'clsx';
   import type { HTMLAttributes, HTMLElementTagNameMap } from 'svelte/elements';
 
-  type FooterProps<Tag extends keyof HTMLElementTagNameMap = 'footer'> =
-    HTMLAttributes<HTMLElementTagNameMap[Tag]> & {
-      /**
-       * Optionally render the footer as a different semantic element
-       * while preserving the same layout and slot structure.
-       */
-      as?: Tag;
+  type FooterProps = HTMLAttributes<HTMLElement> & {
+    /**
+     * Optionally render the footer as a different semantic element
+     * while preserving the same layout and slot structure.
+     */
+    as?: keyof HTMLElementTagNameMap;
       /**
        * Overrides the base styling string. Set to an empty string when composing
        * your own outer classes without the provided defaults.
