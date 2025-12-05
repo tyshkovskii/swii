@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { clsx } from 'clsx';
   import type { HTMLAttributes, HTMLElementTagNameMap } from 'svelte/elements';
 
   type FooterProps<Tag extends keyof HTMLElementTagNameMap = 'footer'> =
@@ -51,7 +52,7 @@
   this={as}
   role={as === 'footer' ? 'contentinfo' : undefined}
   {...$$restProps}
-  class={`${unstyled ? '' : baseClass} ${layoutClass} ${className}`.trim()}
+  class={clsx(!unstyled && baseClass, layoutClass, className)}
 >
   <div class={`${leftClass}`}>
     <slot name="left" />

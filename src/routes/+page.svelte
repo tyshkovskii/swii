@@ -10,6 +10,7 @@ import EditorWindowsList from './components/EditorWindowsList.svelte';
 import EditorSearchBar from './components/EditorSearchBar.svelte';
 import DevErrorBadge from '$lib/ui/DevErrorBadge.svelte';
 import FooterBar from '$lib/ui/FooterBar.svelte';
+import FooterLabel from '$lib/ui/FooterLabel.svelte';
 
 logger.info('PAGE', '🚀 +page.svelte script block started');
 
@@ -111,7 +112,7 @@ $effect(() => {
 </script>
 
 <div class="min-h-screen bg-zinc-900/98 backdrop-blur-xl text-white rounded-2xl border border-zinc-700/50 shadow-2xl flex flex-col overflow-hidden">
-  <div class="w-full max-w-2xl mx-auto flex-1 w-full px-6 py-6">
+  <div class="w-full max-w-2xl mx-auto flex-1 px-6 py-6">
     <EditorSearchBar
       bind:this={searchBarRef}
       onClear={clearSearch}
@@ -130,31 +131,30 @@ $effect(() => {
     middleClass="text-zinc-200"
     rightClass="text-zinc-400"
   >
-    <div
+    <FooterLabel
       slot="left"
-      class="flex items-center gap-2 truncate"
-    >
-      <span class="text-xs uppercase tracking-wide text-zinc-500">Hotkey</span>
-      <span class="font-medium text-sm text-zinc-100">{GLOBAL_SHORTCUT_KEY}</span>
-    </div>
+      label="Hotkey"
+      value={GLOBAL_SHORTCUT_KEY}
+      class="truncate"
+    />
 
-    <div
-      slot="middle"
-      class="flex items-center gap-3"
-    >
-      <span class="text-xs uppercase tracking-wide text-zinc-500">Windows</span>
-      <span class="text-sm font-medium text-zinc-100">{filteredResults.length}</span>
+    <div slot="middle" class="flex items-center gap-3">
+      <FooterLabel
+        label="Windows"
+        value={filteredResults.length.toString()}
+        class="shrink"
+      />
       <span class="h-4 w-px bg-zinc-700" aria-hidden="true" />
       <span class="text-sm text-zinc-200">{overlayStatus}</span>
     </div>
 
-    <div
+    <FooterLabel
       slot="right"
-      class="flex items-center gap-2 truncate"
-    >
-      <span class="text-xs uppercase tracking-wide text-zinc-500">Status</span>
-      <span class="text-sm text-zinc-200">Ready for shortcuts</span>
-    </div>
+      label="Status"
+      value="Ready for shortcuts"
+      class="truncate"
+      valueClass="text-sm text-zinc-200"
+    />
   </FooterBar>
 </div>
 
